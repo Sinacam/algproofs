@@ -63,7 +63,7 @@ This is an amazingly annoying proof.
 # Alternative Proof
 At each step $k$ there are $n - k + 1$ possible swaps, so there are $n!$ possible different executions of the algorithm.
 
-Suppose there are two different sequences of swaps, $s$ and $t$. Let $k$ be the first step that they differ in, i.e.
+Suppose there are two different sequences of swapped indices, $s$ and $t$. Let $k$ be the first step that they differ in, i.e.
 $$
 \begin{align*}
 s_j &= t_j && \forall j < k \\
@@ -108,7 +108,7 @@ In other words, the Fisher-Yates shuffle is the implementation of the product
 $$
 \sigma = \sigma_{ns_n}\cdots\sigma_{1s_1}
 $$
-where $s_k \in [k, n]$ is the sequence of random numbers.
+where $s_k \sim U(k, n)$ is the sequence of random numbers drawn from the range $[k, n]$.
 
 As proven previously, such a permutation is uniformly sampled from all possible permutations.
 
@@ -187,7 +187,7 @@ This is not so obviously true. At each step $k$, all previous elements may be sw
 
 ---
 # Alternative Proof
-Suppose there are two different sequences of swaps $s$ and $t$. Let $j$ be the first step they differ in. After step $j$, the two permutations differ on the position of $j$.
+Suppose there are two different sequences of swapped indices $s$ and $t$. Let $j$ be the first step they differ in. After step $j$, the two permutations differ on the position of $j$.
 
 Let $i < j < k$ be any three indices. We observe that at step $k$ the $j$th element cannot get swapped with the $i$th element.
 
@@ -206,11 +206,11 @@ Recall also that Fisher-Yates can be written as
 $$
 \sigma = \sigma_{ns_n}\cdots\sigma_{1s_1}
 $$
-where $s_k \in [k, n]$. Similarly, `back_shuffle` can be written as
+where $s_k \sim U(k, n)$. Similarly, `back_shuffle` can be written as
 $$
 \sigma = \sigma_{nt_n}\cdots\sigma_{1t_1}
 $$
-where $t_k \in [1, k]$.
+where $t_k \sim U(1, k)$.
 
 ---
 # Permutations Revisited
@@ -237,7 +237,7 @@ That is the exact contract of a data stream. Or in C++ lingo, input iterators.
 # Random Sample on Data Streams
 A random sample of $d$ elements without replacement is exactly equivalent to taking the first $d$ elements of a permuted range.
 
-Suppose we have a huge data stream, but a reasonable sample size $d$. We don't want to save the entire range when we only want the first $d$ elements of the permuted range.
+Suppose we have a huge data stream and a reasonable sample size $d$. We don't want to store the entire range when we only want the first $d$ elements of the permuted range.
 
 This can be achieved by minor modifications to `back_shuffle`.
 
