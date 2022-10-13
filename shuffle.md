@@ -256,7 +256,7 @@ auto random_sample(In first, In last, Out out, Distance d, Rng&& rng) {
     for(; first != last; ++first, ++k) {
         auto s = uniform_int_distribution<Distance>(0, k)(rng);
         if(s < d)
-            out[s] = *first
+            out[s] = *first;
     }
     return out + min(k, d);
 }
